@@ -1,26 +1,34 @@
+import os
 import constants as const
 from library import Library
 
-print(const.menu)
+# Main function to start the program.
+def main():
+    """
+    Display a menu and handle user selections.
+    """
+    
+    os.system('clear')  # Clear the console screen
+    print(const.menu)  # Display the menu options
+    
+    while True:
+        selection = input("Enter your selection (1-4): ")  # Prompt user for input
+        
+        if selection == "1":
+            Library.book_list()  # Display the list of books
+        elif selection == "2":
+            Library.add_book()  # Add a new book
+        elif selection == "3":
+            Library.remove_book()  # Remove a book
+        elif selection == "4":
+            Library.update_book()  # Update book information
+        elif selection in ["Q", "q"]:
+            print("Goodbye!")  # Display goodbye message
+            quit()  # Exit the program
+        else:
+            print("\033[91mInvalid selection!\x1B[0m")  # Display error message
 
-while(1):
-    ### user input
-    selection = input("Enter your selection (1-5): ")
-    
-    if(selection == "1"):
-        Library.book_list()
-    elif(selection == "2"):
-        Library.add_book()
-    elif(selection == "3"):
-        Library.remove_book()
-    elif(selection == "4"):
-        Library.update_book()
-    elif(selection == "5"):
-        Library.search_book()
-    elif(selection == "Q" or selection == "q"):
-        print("Goodbye!")
-        quit()
-    else:
-        print("\033[91mInvalid selection!\x1B[0m")
-    
+        main() # recursive call
+
+main()
 

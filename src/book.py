@@ -1,5 +1,15 @@
 
+"""
+Book Class:
+This class represents a book object with properties for title, author, publish year, and pages.
 
+Methods:
+- __init__: Initializes the Book object with the provided attributes.
+- toString: Returns a string with the book's details.
+- fromString: Creates a Book object from a string input.
+- shorten_title: Shortens the title of the book.
+- shorten_author: Shortens the author's name.
+"""
 class Book: 
     def __init__(self, title:str, author:str, publish_year:str, pages:str):
         self.title = title
