@@ -1,7 +1,7 @@
 
 # Library Automation
 
-Library automation for Akbank Python Bootcamp
+Basic level Library automation for Akbank Python Bootcamp
 
 ```
 $ cd src
