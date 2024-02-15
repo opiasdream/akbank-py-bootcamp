@@ -1,27 +1,26 @@
 import os
 import constants as const
 from library import Library
+from helper import clear_terminal
 
 # Main function to start the program.
 def main():
-    """
-    Display a menu and handle user selections.
-    """
-    
-    os.system('clear')  # Clear the console screen
+    clear_terminal()
     print(const.menu)  # Display the menu options
     
     while True:
         selection = input("Enter your selection (1-4): ")  # Prompt user for input
+
+        library = Library()
         
         if selection == "1":
-            Library.book_list()  # Display the list of books
+            library.book_list()  # Display the list of books
         elif selection == "2":
-            Library.add_book()  # Add a new book
+            library.add_book()  # Add a new book
         elif selection == "3":
-            Library.remove_book()  # Remove a book
+            library.remove_book()  # Remove a book
         elif selection == "4":
-            Library.update_book()  # Update book information
+            library.update_book()  # Update book information
         elif selection in ["Q", "q"]:
             print("Goodbye!")  # Display goodbye message
             quit()  # Exit the program
