@@ -3,14 +3,17 @@ from typing import IO
 import constants as const
 from book import Book
 import string
+from helper import clear_terminal
 
 
 class Library:
     """
     This class represents a library. It provides methods for managing a collection of books.
     """
+    def __init__(self):None
+    pass
 
-    def open_file(mode:str = "a+") -> IO:
+    def open_file(self, mode:str = "a+") -> IO:
         """
         Opens a file in read or append mode.
 
@@ -23,21 +26,21 @@ class Library:
         
         return open("src/books.txt", mode)
     
-    def go_back():
+    def go_back(self):
         """
         Waits for user input to return to the main menu.
         """
         
         input("Press a key to return to the main menu\n")
         
-    def unknown_error():
+    def unknown_error(self):
         """
         Prints a message for an unknown error.
         """
         
         print("\033[91mAn unknown error occurred!\x1B[0m")
 
-    def print_book_list() -> list:
+    def print_book_list(self) -> list:
         """
         Prints a list of books from a file and returns the list of books.
 
@@ -47,10 +50,10 @@ class Library:
         
         try:
             try:
-                with Library.open_file('r') as file:
+                with self.open_file('r') as file:
                     lines = file.read().splitlines()
             except:
-                with Library.open_file('a+') as file:
+                with self.open_file('a+') as file:
                     lines = file.read().splitlines()
                     
             file.close()
@@ -65,34 +68,34 @@ class Library:
             
             return lines
         except:
-            Library.unknown_error()
+            self.unknown_error()
             return []
         
         
-    def book_list():
+    def book_list(self):
         """
         Clears the screen, prints a book list, and then prints the book list.
         """
         try:
-            os.system('clear')
+            clear_terminal()
             print(const.book_list)
 
-            Library.print_book_list()        
+            self.print_book_list()        
         except:
-            Library.unknown_error()
+            self.unknown_error()
         
         finally:
-            Library.go_back()
+            self.go_back()
         
-    def add_book():
+    def add_book(self):
         """
         Clears the screen, prompts the user to enter book details, writes the book details to a file, and prints a success message.
         """
         
         try:
-            os.system('clear')
+            clear_terminal()
             print(const.add_book)
-            
+        
             book = Book(
                 title = input("Enter book title: "),
                 author = input("Enter book author: "),
@@ -100,76 +103,81 @@ class Library:
                 pages = input("Enter number of book pages: ")
             )
         
-            with Library.open_file() as file:
+            with self.open_file() as file:
                 file.write(book.toString() + "\n"),
             file.close()
             
             print("\033[92mBook added successfully!\x1B[0m")
         except:
-            Library.unknown_error()
+            self.unknown_error()
         finally:
-            Library.go_back()
+            self.go_back()
     
-    def remove_book():
+    def remove_book(self):
         """
         Clears the screen, prompts the user to enter book details, writes the book details to a file, and prints a success message.
         """
         
         try:
-            os.system('clear')
+            clear_terminal()
             print(const.remove_book)
             
-            lines = Library.print_book_list()
+            lines = self.print_book_list()
 
             if(len(lines) <= 0):
                 print("\033[91mNo books found!\x1B[0m")
                 return
             
+            print("Press 'Q' to return to the main menu.") 
             while(1):
                 selection = input("Enter book number to remove (1-" + str(len(lines)) + "): ")
+                if selection in ["q","Q"]: return
                 selection = "0" + selection
                 selection = int(selection.strip(string.ascii_letters))
 
                 
                 if(selection <= len(lines) and selection > 0):
-                    with Library.open_file('w') as file:
+                    with self.open_file('w') as file:
                         for idx, i in enumerate(lines):
                             if(idx+1 != int(selection)):
                                 file.write(i + "\n")
                         file.close()
                     print("\033[92mBook removed successfully!\x1B[0m")
+
                     break
                 else:
                     print("\033[91mInvalid selection!\x1B[0m")  
                     
         except Exception as e:
-            Library.unknown_error()
-        finally:
-            Library.go_back()
+            self.unknown_error()
+
+        self.go_back()
     
-    def update_book():
+    def update_book(self):
         """
         Clears the screen, prints an update book message, prints the book list, prompts the user for a book number to update, and then updates the selected book.
         """
         
         try:
-            os.system('clear')
+            clear_terminal()
             print(const.update_book)
             
-            lines = Library.print_book_list()
+            lines = self.print_book_list()
             
             if(len(lines) <= 0):
                 print("\033[91mNo books found!\x1B[0m")
                 return
             
+            print("Press 'Q' to return to the main menu.")
             while(1):
                 selection = input("Enter book number to update (1-" + str(len(lines)) + "): ")
+                if selection in ["q","Q"]: return
                 selection = "0" + selection
                 selection = int(selection.strip(string.ascii_letters))
 
                 
                 if(selection <= len(lines) and selection > 0):
-                    with Library.open_file('w') as file:
+                    with self.open_file('w') as file:
                         for idx, i in enumerate(lines):
                             if(idx+1 == int(selection)):
                                 book = Book(
@@ -187,6 +195,6 @@ class Library:
                 else:
                     print("\033[91mInvalid selection!\x1B[0m")
         except:
-            Library.unknown_error()
+            self.unknown_error()
         finally:
-            Library.go_back()
+            self.go_back()
