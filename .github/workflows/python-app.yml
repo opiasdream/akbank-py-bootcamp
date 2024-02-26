@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "src/main" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "src/main" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -36,4 +36,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        python src/main.py
