@@ -1,8 +1,7 @@
-import os
+import string
 from typing import IO
 import constants as const
 from book import Book
-import string
 from helper import clear_terminal
 
 
@@ -24,7 +23,7 @@ class Library:
             IO: A file object.
         """
         
-        return open("src/books.txt", mode)
+        return open("books.txt", mode)
     
     def go_back(self):
         """

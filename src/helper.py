@@ -1,8 +1,9 @@
 import os
-def clear_terminal():
 
+def clear_terminal():
     try:
         os.system('cls')
-
     except:
+        os.system('clear')
+    finally:
         os.system('clear')
